@@ -63,11 +63,9 @@ export default function SellerUploadDeedPage() {
     }
   }, [activeView]);
 
-  // --- HANDLE FILE UPLOAD ---
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Check if file is too large (e.g., > 10MB) to prevent browser crashing before Base64
       if (file.size > 10 * 1024 * 1024) {
         setStatusMessage({ type: 'error', text: 'File is too large. Please upload a document under 10MB.' });
         return;
@@ -75,7 +73,6 @@ export default function SellerUploadDeedPage() {
 
       setFileName(file.name);
       
-      // Convert file to Base64 string for easy JSON transport
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
@@ -89,11 +86,9 @@ export default function SellerUploadDeedPage() {
     }
   };
 
-  // --- SUBMIT FUNCTION ---
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Ensure a file was uploaded before submitting
     if (!fileBase64) {
       setStatusMessage({ type: 'error', text: 'Please upload a Title Deed document.' });
       return;
@@ -108,7 +103,7 @@ export default function SellerUploadDeedPage() {
         locationWard, 
         sizeAcres,
         listingPrice,
-        deedDocument: fileBase64 // Send the Base64 document to the backend
+        deedDocument: fileBase64
       }, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
