@@ -8,9 +8,9 @@ By digitizing the traditional "Chain of Custody" for land titles and integrating
 ##  Key Features
 The system utilizes strict Role-Based Access Control (RBAC) to serve three distinct stakeholders:
 
-* ** Buyers (View-Only):** Search for properties via Title Number, view an interactive historical Chain of Custody, and receive AI-generated price fairness confidence scores.
-* ** Sellers (Listing):** Securely initiate the verification process, post property listings, and upload digital Title Deeds (PDF/Images) converted to Base64 for secure storage.
-* ** Chief Registrar (Validation):** An administrative console to review pending listings, cross-reference uploaded deeds, and approve/reject transfers to maintain an immutable history log.
+* **Buyers (View-Only):** Search for properties via Title Number, view an interactive historical Chain of Custody, and receive AI-generated price fairness confidence scores.
+* **Sellers (Listing):** Securely initiate the verification process, post property listings, and upload digital Title Deeds (PDF/Images) converted to Base64 for secure storage.
+* **Chief Registrar (Validation):** An administrative console to review pending listings, cross-reference uploaded deeds, and approve/reject transfers to maintain an immutable history log.
 
 ##  Technology Stack
 LandGuard is built using a decoupled **Microservices-Lite** architecture.
