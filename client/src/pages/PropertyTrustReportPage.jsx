@@ -13,7 +13,6 @@ export default function PropertyTrustReportPage() {
 
   const userName = localStorage.getItem('userName') || 'Buyer';
   
-  // We use state for the title so we can update it without reloading the page
   const [currentTitle, setCurrentTitle] = useState(location.state?.titleNumber || '');
   
   const [propertyData, setPropertyData] = useState(null);
@@ -61,7 +60,6 @@ export default function PropertyTrustReportPage() {
     );
   }
 
-  // Set up dynamic styling variables based on status
   let dbStatus = 'Pending';
   let trustScore = 0;
   let trustLabel = '';
@@ -96,7 +94,6 @@ export default function PropertyTrustReportPage() {
   return (
     <div className="min-h-screen bg-[#f8f9fa] font-sans text-slate-800 flex flex-col">
       
-      {/* NAVIGATION BAR */}
       <nav className="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between shadow-sm sticky top-0 z-50">
          <Link to="/" className="flex items-center gap-2 font-black text-xl text-[#002147]">
             <div className="flex h-8 w-8 items-center justify-center rounded bg-[#F2A900]/20 text-[#F2A900]">
@@ -123,7 +120,6 @@ export default function PropertyTrustReportPage() {
          </div>
       </nav>
       
-      {/* MAIN CONTENT AREA */}
       <main className="flex-grow w-full max-w-[1200px] mx-auto px-4 sm:px-6 mt-8 pb-12">
         
         {error ? (
@@ -140,7 +136,6 @@ export default function PropertyTrustReportPage() {
         ) : propertyData ? (
            <div className="animate-in fade-in duration-500">
               
-              {/* Report Header */}
               <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-8">
                  <div>
                     <div className="flex flex-wrap items-center gap-3 mb-2">
@@ -170,13 +165,10 @@ export default function PropertyTrustReportPage() {
                  </div>
               </div>
 
-              {/* Data Grid */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                  
-                 {/* LEFT COLUMN (Overview & Custody) */}
                  <div className="space-y-6">
                     
-                    {/* Property Overview Card */}
                     <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
                        <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
                          <h2 className="text-lg font-black text-[#002147]">Property Overview</h2>
@@ -220,7 +212,6 @@ export default function PropertyTrustReportPage() {
                        </div>
                     </div>
 
-                    {/* Chain of Custody Card */}
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                        <div className="flex justify-between items-end mb-6">
                           <h2 className="text-lg font-black text-[#002147]">Chain of Custody</h2>
@@ -228,7 +219,7 @@ export default function PropertyTrustReportPage() {
                        </div>
                        
                        <div className="relative border-l-2 border-slate-200 ml-2 space-y-8 pb-2">
-                          {/* Current Status Node */}
+
                           <div className="relative pl-6">
                              <div className={`absolute w-4 h-4 rounded-full -left-[9px] top-1 ring-4 ring-white shadow-sm ${
                                 dbStatus === 'Verified' ? 'bg-[#00D170]' : 
@@ -258,7 +249,6 @@ export default function PropertyTrustReportPage() {
                              </span>
                           </div>
 
-                          {/* DYNAMIC HISTORICAL NODES GENERATED FROM DATABASE */}
                           {propertyData.chainOfCustody && propertyData.chainOfCustody.length > 0 ? (
                              propertyData.chainOfCustody.map((log, idx) => (
                                 <div key={idx} className="relative pl-6 opacity-50">
@@ -283,10 +273,8 @@ export default function PropertyTrustReportPage() {
 
                  </div>
 
-                 {/* RIGHT COLUMN (Valuation & Trust Score) */}
                  <div className="space-y-6">
                     
-                    {/* AI Valuation Card */}
                     <div className={`bg-gradient-to-b ${(propertyData.valuation?.isHighRisk || dbStatus === 'Rejected') ? 'from-red-50' : 'from-[#fffbeb]'} to-white rounded-xl shadow-md border-2 ${(propertyData.valuation?.isHighRisk || dbStatus === 'Rejected') ? 'border-red-200' : 'border-[#F2A900]/30'} overflow-hidden relative`}>
                        <BarChart3 size={120} className={`absolute -right-6 -top-6 rotate-12 pointer-events-none ${(propertyData.valuation?.isHighRisk || dbStatus === 'Rejected') ? 'text-red-500/10' : 'text-[#F2A900]/10'}`} />
                        
@@ -298,17 +286,14 @@ export default function PropertyTrustReportPage() {
                              <h2 className="text-xs font-black text-slate-500 uppercase tracking-widest">AI Estimated Market Value</h2>
                           </div>
                           
-                          {/* 1. REAL AI VALUE (Replaced the asking price) */}
                           <div className="text-3xl sm:text-5xl font-black text-[#002147] tracking-tight mb-2">
                              Ksh {propertyData.valuation?.estimatedValue?.toLocaleString() || "Pending"}
                           </div>
                           
-                          {/* 2. REAL MATH RANGE */}
                           <p className="text-sm font-medium text-slate-500 mb-4">
                              Range: {(propertyData.valuation?.estimatedValue * 0.90 / 1000000).toFixed(1)}M - {(propertyData.valuation?.estimatedValue * 1.10 / 1000000).toFixed(1)}M
                           </p>
 
-                          {/* 3. DYNAMIC HIGH RISK WARNING (Triggers if variance > 20%) */}
                           {propertyData.valuation?.isHighRisk && (
                              <div className="bg-red-100 text-red-700 p-3 rounded-lg flex items-start gap-2 mb-6 border border-red-200 animate-in fade-in slide-in-from-top-2">
                                 <AlertTriangle size={18} className="shrink-0 mt-0.5" />
@@ -337,7 +322,6 @@ export default function PropertyTrustReportPage() {
                        </div>
                     </div>
 
-                    {/* Trust Score Banner */}
                     <div className={`${trustBg} border ${trustBorder} rounded-xl p-6 flex items-center justify-between shadow-sm transition-colors duration-500`}>
                        <div className="flex items-center gap-4">
                           <div className={`${dbStatus === 'Verified' ? 'bg-green-600' : dbStatus === 'Pending' ? 'bg-yellow-500' : 'bg-red-600'} text-white p-3 rounded-lg shadow-sm transition-colors`}>
@@ -359,7 +343,6 @@ export default function PropertyTrustReportPage() {
         ) : null}
       </main>
 
-      {/* FOOTER */}
       <footer className="bg-white px-6 py-10 border-t border-slate-200 mt-auto">
         <div className="mx-auto flex max-w-[1200px] flex-col gap-6 md:flex-row md:items-center md:justify-between text-sm text-slate-500">
           <div className="flex items-center gap-3">
