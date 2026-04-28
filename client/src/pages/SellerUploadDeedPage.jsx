@@ -10,26 +10,22 @@ import {
 export default function SellerUploadDeedPage() {
   const navigate = useNavigate();
 
-  // Safely grab user details
   const userName = localStorage.getItem('userName') || 'Seller';
   const userEmail = localStorage.getItem('userEmail') || 'Email not found';
   
   const [activeView, setActiveView] = useState('dashboard'); 
   
-  // Form State
   const [titleNumber, setTitleNumber] = useState('');
   const [locationWard, setLocationWard] = useState('');
   const [sizeAcres, setSizeAcres] = useState('');
   const [listingPrice, setListingPrice] = useState('');
   const [additionalNotes, setAdditionalNotes] = useState('');
   
-  // File Upload State
   const [fileName, setFileName] = useState(''); 
   const [fileBase64, setFileBase64] = useState('');   
   const [statusMessage, setStatusMessage] = useState({ type: '', text: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // My Properties State
   const [myProperties, setMyProperties] = useState([]);
   const [isLoadingProps, setIsLoadingProps] = useState(true);
 
@@ -47,7 +43,7 @@ export default function SellerUploadDeedPage() {
       setMyProperties(response.data);
     } catch (error) {
       console.error("Fetch Error:", error);
-      // Auto-logout if token is expired or invalid
+      
       if (error.response && (error.response.status === 401 || error.response.status === 403)) {
         handleLogout();
       }
@@ -122,14 +118,13 @@ export default function SellerUploadDeedPage() {
     } catch (error) {
       console.error(error);
       
-      // Catch expired token and log user out automatically
       if (error.response && (error.response.status === 401 || error.response.status === 403)) {
         setStatusMessage({ type: 'error', text: 'Your session has expired. Logging you out...' });
         setTimeout(() => {
           handleLogout();
         }, 2000);
       } else if (error.response && error.response.status === 413) {
-        // Catch "Payload Too Large" error specifically
+      
         setStatusMessage({ type: 'error', text: 'File is too large for the server. Check backend JSON limits.' });
       } else {
         setStatusMessage({ type: 'error', text: error.response?.data?.message || 'Submission failed. Make sure all fields are valid.' });
@@ -146,7 +141,6 @@ export default function SellerUploadDeedPage() {
   return (
     <div className="min-h-screen flex bg-[#0F172A] font-sans text-slate-200">
        
-       {/* Sidebar */}
        <aside className="w-72 bg-[#0B1120] border-r border-slate-800 flex flex-col min-h-screen shrink-0 z-10 relative">
           <div className="p-8">
             <Link to="/" className="flex items-center gap-3">
