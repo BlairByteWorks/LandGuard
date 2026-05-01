@@ -38,7 +38,7 @@ export default function LoginRegisterPage() {
                     return;
                 }
 
-                await axios.post('http://localhost:5000/api/auth/register', {
+                await axios.post('https://landguard-backend-ar7b.onrender.com/api/auth/register', {
                     name: name || "New User", 
                     email: email,
                     password: password,
@@ -52,7 +52,7 @@ export default function LoginRegisterPage() {
                 setConfirmPassword('');
                 
             } else {
-                const response = await axios.post('http://localhost:5000/api/auth/login', {
+                const response = await axios.post('https://landguard-backend-ar7b.onrender.com/api/auth/login', {
                     email: email,
                     password: password
                 });

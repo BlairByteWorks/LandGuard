@@ -45,14 +45,14 @@ router.post('/add', authenticateToken, async (req, res) => {
 router.get('/me', authenticateToken, async (req, res) => {
     try {
         const myProperties = await Property.find({ currentOwnerID: req.user.id })
-            .select('-deedDocument') // Strips out the massive PDF string so the page loads instantly
+            .select('-deedDocument')
             .sort({ createdAt: -1 });
         res.json(myProperties);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
-// ------------------------------
+
 
 router.get('/pending', async (req, res) => {
     try {

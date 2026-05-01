@@ -29,9 +29,9 @@ export default function RegistrarVerificationPage() {
       setIsLoading(true);
       try {
         const [pendingRes, verifiedRes, rejectedRes] = await Promise.all([
-          axios.get('http://localhost:5000/api/properties/pending'),
-          axios.get('http://localhost:5000/api/properties/verified'),
-          axios.get('http://localhost:5000/api/properties/rejected')
+          axios.get('https://landguard-backend-ar7b.onrender.com/api/properties/pending'),
+          axios.get('https://landguard-backend-ar7b.onrender.com/api/properties/verified'),
+          axios.get('https://landguard-backend-ar7b.onrender.com/api/properties/rejected')
         ]);
 
         setPendingProperties(pendingRes.data);
@@ -50,7 +50,7 @@ export default function RegistrarVerificationPage() {
   const handleVerify = async (propertyId) => {
     setActionLoadingId(propertyId);
     try {
-      const response = await axios.put(`http://localhost:5000/api/properties/verify/${propertyId}`);
+      const response = await axios.put(`https://landguard-backend-ar7b.onrender.com/api/properties/verify/${propertyId}`);
       
       const verifiedProp = pendingProperties.find(p => p._id === propertyId);
       if (verifiedProp) {
@@ -73,7 +73,7 @@ export default function RegistrarVerificationPage() {
 
     setRejectLoadingId(propertyId);
     try {
-      const response = await axios.put(`http://localhost:5000/api/properties/reject/${propertyId}`);
+      const response = await axios.put(`https://landguard-backend-ar7b.onrender.com/api/properties/reject/${propertyId}`);
       
       const rejectedProp = pendingProperties.find(p => p._id === propertyId);
       if (rejectedProp) {

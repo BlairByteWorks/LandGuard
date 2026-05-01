@@ -14,7 +14,7 @@ export default function ForgotPasswordPage() {
     setErrorMessage('');
 
     try {
-      await axios.post('http://localhost:5000/api/auth/forgot-password', { email });
+      await axios.post('https://landguard-backend-ar7b.onrender.com/api/auth/forgot-password', { email });
       
       setStatus('success');
     } catch (error) {

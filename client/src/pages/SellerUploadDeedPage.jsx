@@ -37,7 +37,7 @@ export default function SellerUploadDeedPage() {
   const fetchMyProperties = async () => {
     setIsLoadingProps(true);
     try {
-      const response = await axios.get('http://localhost:5000/api/properties/me', {
+      const response = await axios.get('https://landguard-backend-ar7b.onrender.com/api/properties/me', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       setMyProperties(response.data);
@@ -94,7 +94,7 @@ export default function SellerUploadDeedPage() {
     setStatusMessage({ type: '', text: '' });
 
     try {
-      await axios.post('http://localhost:5000/api/properties/add', {
+      await axios.post('https://landguard-backend-ar7b.onrender.com/api/properties/add', {
         titleNumber,
         locationWard, 
         sizeAcres,
